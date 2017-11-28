@@ -14,7 +14,7 @@ public class Edge {
     private double weigth;
     
     public Edge (int e){
-        e = this.dest;
+        this.dest = e;
         this.weigth = 0.0;
     }
     

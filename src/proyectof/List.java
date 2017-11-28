@@ -82,7 +82,7 @@ public class List <T> {
                 }
                 last = pointer;
                 last.next = pointer = null;
-            }
+            }   
         }
         length--;
     }
@@ -92,14 +92,15 @@ public class List <T> {
             if (p.data == n){
                 deleteFirst();
                 return true;
+            }else if (p.data == last.data){
+                deleteLast();
             }else{
                 p.next = p.next.next;
                 length--;
                 return true;
             }
-        }else{
-            return false;
         }
+        return false;
     }
     public Node fetchBack(T n){
         if (!isEmpty()){
@@ -187,7 +188,7 @@ public class List <T> {
                 }
             }else{
                 pointer = first;
-                for (int i = 0; i <= length; i++){
+                for (int i = 0; i < length; i++){
                     if (pointer.n == n){
                         return true;
                     }
@@ -206,5 +207,10 @@ public class List <T> {
             pointer = pointer.next;
         }
         System.out.println("Last");
+    }
+    
+    public void clearList(){
+        first = last = pointer = null;
+        length = 0;
     }
 }

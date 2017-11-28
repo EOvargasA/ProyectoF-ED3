@@ -32,7 +32,7 @@ public class ProyectoF {
         a.insertE(6, 5);
         a.insertE(6, 7);
         a.insertE(6, 11);
-        a.insertE(2, 6);
+        a.insertE(7,2);
         a.insertE(7, 6);
         a.insertE(7, 9);
         a.insertE(8, 2);
@@ -47,7 +47,7 @@ public class ProyectoF {
         a.insertE(11, 10);
         a.insertE(12, 8);
         Edge b = new Edge(0);
-        System.out.println(0+" -> "+a.shortDFS(1, 12));
+        System.out.println(b.toString()+" -> "+a.shortDFS(1, 12));
     }
     
 }

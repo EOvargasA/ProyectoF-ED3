@@ -21,11 +21,10 @@ public class Graph {
     }
     
     public Graph (int v){
-        List<Edge> p = new List<>();
         this.v = v;
         this.e = 0;
         for (int i = 1; i <= v; i++){
-            edges.insertLast(p, i);
+            edges.insertLast(new List<>(), i);
         }
     }  
     
@@ -62,12 +61,14 @@ public class Graph {
     
     public void insertE (int s, int d, double w){
         Node<List<Edge>> n;
-        n = edges.fetch(s);
+        n = edges.first;
         if (n != null){
             Edge p = new Edge(d);
-            if (!n.data.exist(p)){
-                p = new Edge (d,w);
-                n.data.insertLast(p, d);
+            for (int j = 1; j <= v; j++){
+                if (n.n == s){
+                    n.data.insertLast(p, d);
+                }
+                n = n.next;
             }
         }
     }
@@ -93,7 +94,7 @@ public class Graph {
             }else{
                 r = r + "Con adyacentes: ";
                 lp.pointer = lp.first;
-                for (int j = 1; j < lp.length; j++){
+                for (int j = 1; j <= lp.length; j++){
                     r = r+lp.pointer.data.toString()+" ";
                     lp.pointer = lp.pointer.next;
                 }
@@ -108,13 +109,13 @@ public class Graph {
         Node<Edge> b;
         if (path.length != 0){
             path.pointer = path.first;
-            for (int j = 0; j <= path.length; j++){
-                b = path.getLast();
-                r = r + b +" ";
-                if (j != path.length){
+            for (int j = 0; j < path.length; j++){
+                b = path.pointer;
+                r = r + b.data.toString() +" ";
+                if (j < path.length - 1){
                     r = r + "-> ";
                 }
-                path.deleteLast();
+                path.pointer = path.pointer.next;
             }
             return r;
         }else{
@@ -124,12 +125,13 @@ public class Graph {
     
     private void recursiveSDFS (int i, int f){
         if(!visited.exist(i)){
-           this.visited.insertLast(new Edge(i),i);
+           Edge z = new Edge(i);
+           this.visited.insertLast(z,i);
            if(i == f){
                if (path.length == 0){
-                   path = visited;
+                   visitedP();
                }else if (path.length > visited.length){
-                   path = visited;
+                   visitedP();
                }
            }else{
                Node<List<Edge>> a = edges.fetch(i);
@@ -137,10 +139,25 @@ public class Graph {
                b.pointer = b.first;
                for (int j = 1; j <= b.length; j++){
                    recursiveSDFS(b.pointer.n,f);
-                   b.pointer = b.pointer.next;
+                   if (j < b.length){
+                    b.pointer = b.pointer.next;
+                   }
                }
            }
-           this.visited.deleteNode(new Edge(i));
+           this.visited.deleteLast();
         }
     }
+    
+    private void visitedP (){
+        visited.pointer = visited.first;
+        Node<Edge> a = new Node<Edge>(new Edge(1),1);
+        Edge b = new Edge (1);
+        path.clearList();
+        for (int i = 0; i < visited.length; i++){
+            a = visited.pointer;
+            b = a.data;
+            path.insertLast(b,i);
+            visited.pointer = visited.pointer.next;
+        }
+    } 
 }
