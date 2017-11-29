@@ -47,7 +47,7 @@ public class ProyectoF {
         a.insertE(11, 10);
         a.insertE(12, 8);
         Edge b = new Edge(0);
-        System.out.println(b.toString()+" -> "+a.shortDFS(1, 12));
+        System.out.println(b.toString()+" -> "+a.shortBFS(1, 12));
     }
     
 }

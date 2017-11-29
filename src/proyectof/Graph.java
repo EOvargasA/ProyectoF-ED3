@@ -14,6 +14,7 @@ public class Graph {
     private List<List<Edge>> edges = new List<>();
     private List<Edge> visited = new List<>();
     private List<Edge> path = new List<>();
+    private DQueue <List<Edge>> pAna = new DQueue<>();
     
     private boolean visited(int e){
         Edge a = new Edge(e);
@@ -104,6 +105,9 @@ public class Graph {
     }
     
     public String shortDFS (int i, int f){
+        visited.clearList();
+        path.clearList();
+        pAna.clearQueue();
         recursiveSDFS(i,f);
         String r = "";
         Node<Edge> b;
@@ -148,6 +152,50 @@ public class Graph {
         }
     }
     
+    public String shortBFS (int i, int f){
+        Edge a = new Edge(i);
+        visited.clearList();
+        path.clearList();
+        pAna.clearQueue();
+        pAna.enqueueLast(new List<Edge>(a,i));
+
+        List<Edge> pa = new List<>();
+        List<Edge> fa = new List<>();
+        Node <List<Edge>> neir;
+        List<Edge> ber;
+        Node<Edge> z, b;
+        Edge x, y;
+        if (i == f){
+            return a.toString();
+        }
+        do{
+        pa = NIC(pAna.dequeueFront());
+        fa = NIC(pa);
+        z = pa.last;
+        x = z.data;
+        //if (!visited.exist(x)){
+            visited.insertLast(x, x.getDest());
+            neir = edges.fetch(x.getDest());
+            ber = neir.data;
+            b = ber.first;
+            for (int l = 0; l < ber.length; l++){
+                y = b.data;
+                if (!visited.exist(y.getDest())){
+                    fa.insertLast(y, y.getDest());
+                    if (y.getDest() == f){
+                        return listS(fa);
+                    }
+                    visited.insertLast(y, y.getDest());
+                    pAna.enqueueLast(NIC(fa));
+                    fa = NIC(pa);
+                }
+                b = b.next;
+            }
+        //}
+        }while(!pAna.isEmpty());
+        return "no existe";
+    }
+    
     private void visitedP (){
         visited.pointer = visited.first;
         Node<Edge> a = new Node<Edge>(new Edge(1),1);
@@ -159,5 +207,49 @@ public class Graph {
             path.insertLast(b,i);
             visited.pointer = visited.pointer.next;
         }
+    }
+    
+    private void visitedC (List<Edge> l){
+        l.pointer = l.first;
+        Node<Edge> a;
+        Edge b;
+        visited.clearList();
+        for (int i = 0; i < l.length; i++){
+            a = l.pointer;
+            b = a.data;
+            visited.insertLast(b,b.getDest());
+            l.pointer = l.pointer.next;
+        }
     } 
+    
+    private List<Edge> NIC (List<Edge> f){
+        List<Edge> c = new List<Edge>();
+        f.pointer = f.first;
+        Node<Edge> a;
+        Edge b;
+        for (int i = 0; i < f.length; i++){
+            a = f.pointer;
+            b = a.data;
+            c.insertLast(b,b.getDest());
+            f.pointer = f.pointer.next;
+        }
+        return c;
+    }
+    
+    private String listS (List fa){
+        String r = "";
+        Node<Edge> o;
+        if (fa.length != 0){
+            fa.pointer = fa.first;
+            for (int j = 0; j < fa.length; j++){
+                o = fa.pointer;
+                r = r + o.data.toString() +" ";
+                if (j < fa.length - 1){
+                    r = r + "-> ";
+                }
+                fa.pointer = fa.pointer.next;
+            }
+        }
+        return r;
+    }
 }

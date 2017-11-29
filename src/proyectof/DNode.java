@@ -9,19 +9,14 @@ package proyectof;
  *
  * @author Osiris
  */
-public class Node <T> {
+public class DNode<T> {
     T data;
-    Node next;
-    int n;
+    DNode next;
+    DNode back;
     
-    Node (T d, int n){
+    DNode (T d){
         data = d;
-        this.n = n;
         next = null;
-    }
-    
-    @Override
-    public String toString(){
-        return "["+data.toString()+"]";
+        back = null;
     }
 }
