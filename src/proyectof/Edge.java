@@ -10,12 +10,14 @@ package proyectof;
  * @author Osiris
  */
 public class Edge {
+    //atributos
     private int dest;
     private double weigth;
     
+    //constructores
     public Edge (int e){
         this.dest = e;
-        this.weigth = 0.0;
+        this.weigth = 0.0;//cuando no nos dan peso le damos un peso de 0
     }
     
     public Edge (int e, double w){
@@ -23,6 +25,7 @@ public class Edge {
         this.weigth = w;    
     }
     
+    //get y set
     public int getDest(){
         return this.dest;
     }
@@ -32,6 +35,6 @@ public class Edge {
     }
     
     public String toString (){
-        return this.dest+"("+this.weigth+")";
+        return this.dest+"("+this.weigth+")";//concatenamos el numero de arista con el peso dentro de parentesis
     }
 }

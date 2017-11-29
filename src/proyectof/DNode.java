@@ -10,10 +10,12 @@ package proyectof;
  * @author Osiris
  */
 public class DNode<T> {
+    //atributos
     T data;
     DNode next;
     DNode back;
     
+    //metodos
     DNode (T d){
         data = d;
         next = null;

@@ -15,7 +15,8 @@ public class ProyectoF {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Graph a = new Graph(12);
+        Graph a = new Graph(12);//instanciamos el grafo que vamos a evaluar
+        //instanciamos todas las conexiones entre estos
         a.insertE(1, 2);
         a.insertE(1, 4);
         a.insertE(2, 1);
@@ -46,8 +47,8 @@ public class ProyectoF {
         a.insertE(11, 8);
         a.insertE(11, 10);
         a.insertE(12, 8);
-        Edge b = new Edge(0);
-        System.out.println(b.toString()+" -> "+a.shortBFS(1, 12));
+        Edge b = new Edge(0);//se crea el nodo 0, puesto que este solo tiene 1 camino posible
+        System.out.println(b.toString()+" -> "+a.shortDFS(1, 12));//se concatena nuestro nodo 0 con el camino mas corto a partir del nodo 1
     }
     
 }
